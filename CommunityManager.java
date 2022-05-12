@@ -32,7 +32,10 @@ public class CommunityManager implements MessageListener{
     @Override
     public void messageRecu(MessageEvent message) {
         for(MessageListener listener : listListeners){
-            listener.messageRecu(message);
+            if(message.getSource() != listener) {
+                listener.messageRecu(message);
+            }
         }
     }
+
 }

@@ -1,3 +1,5 @@
+package Structure;
+
 import java.util.ArrayList;
 
 public class CommunityManager implements MessageListener{
@@ -23,7 +25,7 @@ public class CommunityManager implements MessageListener{
 
     @Override
     public String toString() {
-        return "CommunityManager{" +
+        return "Structure.CommunityManager{" +
                 "topic='" + topic + '\'' +
                 ", pseudoCM='" + pseudoCM + '\'' +
                 '}';

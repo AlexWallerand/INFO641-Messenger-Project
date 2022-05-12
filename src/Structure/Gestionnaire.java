@@ -1,3 +1,5 @@
+package Structure;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -27,15 +29,15 @@ public class Gestionnaire {
     }
     @Override
     public String toString() {
-        return "Gestionnaire{" +
+        return "Structure.Gestionnaire{" +
                 "listBavard=" + listBavard +
                 ", listCM=" + listCM +
                 '}';
     }
 
-    public Bavard searchBavard(String pseudo){
+    public Bavard searchBavard(String pseudo, String mdp){
         for(Bavard bavard : listBavard){
-            if(Objects.equals(bavard.getPseudo(), pseudo)){
+            if((Objects.equals(bavard.getPseudo(), pseudo)) && (Objects.equals(bavard.getPseudo(), pseudo))){
                 return bavard;
             }
         }
@@ -58,8 +60,8 @@ public class Gestionnaire {
         return bavard;
     }
 
-    public void deleteBavard(String pseudo){
-        Bavard bavard = searchBavard(pseudo);
+    public void deleteBavard(String pseudo, String mdp){
+        Bavard bavard = searchBavard(pseudo,mdp);
         listBavard.remove(bavard);
     }
 
@@ -83,11 +85,8 @@ public class Gestionnaire {
         cm.getListListeners().remove(bavard);
     }
 
-    public void connectionBavard(String pseudo, String mdp){
-        Bavard bavard = searchBavard(pseudo);
-        if(Objects.equals(bavard.getMdp(), mdp)){
+    public void connectionBavard(Bavard bavard){
             bavard.setConnection(true);
-        }
     }
 
     public void deconnectionBavard(Bavard bavard){

@@ -1,4 +1,7 @@
-import java.nio.charset.CharacterCodingException;
+package Structure;
+
+import Ihm.Connexion;
+import Ihm.Fenetre;
 
 public class TestClass {
     public static void main(String[] args) {
@@ -6,9 +9,9 @@ public class TestClass {
         Gestionnaire g = new Gestionnaire();
         CommunityManager furry = g.createCM("furrygai", "andrew");
         CommunityManager mein = g.createCM("meinQuanpf", "adhit");
-        Bavard pedro = g.createBavard("pedro");
-        Bavard robert = g.createBavard("robert");
-        Bavard patrick = g.createBavard("patrick");
+        Bavard pedro = g.createBavard("pedro","a");
+        Bavard robert = g.createBavard("robert","b");
+        Bavard patrick = g.createBavard("patrick","c");
 
         g.addListener(pedro,furry);
         g.addListener(robert,furry);
@@ -16,6 +19,8 @@ public class TestClass {
         g.addListener(patrick,mein);
 
         pedro.newMessageEvent("pipi pasta","si si la pipi pasta wahou","furrygai");
+
+        Fenetre ihm = new Connexion(g);
 
     }
 }

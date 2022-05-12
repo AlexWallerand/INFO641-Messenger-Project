@@ -1,3 +1,5 @@
+package Structure;
+
 import java.util.EventObject;
 
 public class MessageEvent extends EventObject {
@@ -25,7 +27,7 @@ public class MessageEvent extends EventObject {
 
     @Override
     public String toString() {
-        return "MessageEvent{" +
+        return "Structure.MessageEvent{" +
                 "sujet='" + sujet + '\'' +
                 ", corps='" + corps + '\'' +
                 '}';

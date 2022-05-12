@@ -1,3 +1,5 @@
+package Structure;
+
 import java.util.ArrayList;
 
 public class Bavard implements MessageListener {
@@ -31,7 +33,7 @@ public class Bavard implements MessageListener {
 
     @Override
     public String toString() {
-        return "Bavard{" +
+        return "Structure.Bavard{" +
                 "pseudo='" + pseudo + '\'' +
                 ", gestionnaireListeners=" + communityListeners +
                 '}';

@@ -86,7 +86,8 @@ public class Gestionnaire {
     }
 
     public void connectionBavard(Bavard bavard){
-            bavard.setConnection(true);
+        bavard.setConnection(true);
+
     }
 
     public void deconnectionBavard(Bavard bavard){

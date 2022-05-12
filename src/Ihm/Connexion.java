@@ -16,6 +16,7 @@ public class Connexion extends Fenetre{
     private JLabel pseudo = new JLabel("Pseudo : ");
     private JLabel mdp = new JLabel("Mot de passe : ");
     private JButton submit = new JButton("Se connecter");
+    private JLabel erreur = new JLabel("Login ou mot de passe incorrect");
     private Gestionnaire gestionnaire;
 
 
@@ -29,26 +30,35 @@ public class Connexion extends Fenetre{
         this.pan.add(inputMdp);
         this.pan.add(submit);
         this.setVisible(true);
-       submit.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-               String p = inputPseudo.getText();
-               String m = inputMdp.getText();
-               Bavard bavard = gestionnaire.searchBavard(p,m);
-               if (bavard == null){
-                   JLabel erreur = new JLabel("Login ou mot de passe incorrect");
-                   pan.add(erreur);
-                   setVisible(true);
-               }
-               else if((Objects.equals(p, "admin")) && (Objects.equals(p, "admin"))){
-                   System.out.println("jul");
-
-               }
-               else{
-                   gestionnaire.connectionBavard(bavard);
-               }
+        Connexion c = this;
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String p = inputPseudo.getText();
+                String m = inputMdp.getText();
+                Bavard bavard = gestionnaire.searchBavard(p,m);
+                if((Objects.equals(p, "admin")) && (Objects.equals(m, "admin"))){
+                    Administrateur pageAdmin = new Administrateur();
+                    c.dispose();
+                }
+                else if((bavard == null)){
+                    if(!containsComponent(pan,erreur)){
+                        pan.add(erreur);
+                        setVisible(true);
+                    }
+                }
+                else{
+                    gestionnaire.connectionBavard(bavard);
+                }
            }
        });
-
+    }
+    public Boolean containsComponent(Container container, JComponent component) {
+        for (Component containedComponent : container.getComponents()) {
+            if (containedComponent == component) {
+                return true;
+            }
+        }
+        return false;
     }
 }

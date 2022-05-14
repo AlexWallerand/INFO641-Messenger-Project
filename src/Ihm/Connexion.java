@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Connexion extends Fenetre{
 
     private JTextField inputPseudo = new JTextField();
-    private JTextField inputMdp = new JTextField();
+    private JPasswordField inputMdp = new JPasswordField();
     private JLabel pseudo = new JLabel("Pseudo : ");
     private JLabel mdp = new JLabel("Mot de passe : ");
     private JButton submit = new JButton("Se connecter");
@@ -22,6 +22,8 @@ public class Connexion extends Fenetre{
 
     public Connexion(Gestionnaire gestionnaire) throws HeadlessException {
         super("Page de connexion");
+        this.setSize(500,150);
+        this.setResizable(false);
         this.gestionnaire = gestionnaire;
         setLayout(new GridLayout(3,2));
         this.pan.add(pseudo);
@@ -35,10 +37,11 @@ public class Connexion extends Fenetre{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String p = inputPseudo.getText();
-                String m = inputMdp.getText();
+                char[] mdpPassword = inputMdp.getPassword();
+                String m = new String(mdpPassword);
                 Bavard bavard = gestionnaire.searchBavard(p,m);
                 if((Objects.equals(p, "admin")) && (Objects.equals(m, "admin"))){
-                    Administrateur pageAdmin = new Administrateur();
+                    Administrateur pageAdmin = new Administrateur(gestionnaire);
                     c.dispose();
                 }
                 else if((bavard == null)){
@@ -52,13 +55,5 @@ public class Connexion extends Fenetre{
                 }
            }
        });
-    }
-    public Boolean containsComponent(Container container, JComponent component) {
-        for (Component containedComponent : container.getComponents()) {
-            if (containedComponent == component) {
-                return true;
-            }
-        }
-        return false;
     }
 }

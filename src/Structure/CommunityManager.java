@@ -3,20 +3,15 @@ package Structure;
 import java.util.ArrayList;
 
 public class CommunityManager implements MessageListener{
-    private final String topic, pseudoCM;
+    private final String topic;
     private final ArrayList<MessageListener> listListeners = new ArrayList<>();
 
-    public CommunityManager(String topic, String pseudoCM) {
+    public CommunityManager(String topic) {
         this.topic = topic;
-        this.pseudoCM = pseudoCM;
     }
 
     public String getTopic() {
         return topic;
-    }
-
-    public String getPseudoCM() {
-        return pseudoCM;
     }
 
     public ArrayList<MessageListener> getListListeners() {
@@ -27,7 +22,6 @@ public class CommunityManager implements MessageListener{
     public String toString() {
         return "Structure.CommunityManager{" +
                 "topic='" + topic + '\'' +
-                ", pseudoCM='" + pseudoCM + '\'' +
                 '}';
     }
 

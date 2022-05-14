@@ -6,10 +6,12 @@ public class Bavard implements MessageListener {
     private final String pseudo, mdp; // Pseudo unique requis
     private final ArrayList<MessageListener> communityListeners = new ArrayList<>();
     private Boolean connection = false;
+    private Gestionnaire gestionnaire;
 
-    public Bavard(String pseudo, String mdp) {
+    public Bavard(String pseudo, String mdp, Gestionnaire gestionnaire) {
         this.pseudo = pseudo;
         this.mdp = mdp;
+        this.gestionnaire = gestionnaire;
     }
 
     public String getPseudo() {
@@ -18,7 +20,6 @@ public class Bavard implements MessageListener {
     public String getMdp() {
         return mdp;
     }
-
     public Boolean getConnection() {
         return connection;
     }
@@ -33,10 +34,7 @@ public class Bavard implements MessageListener {
 
     @Override
     public String toString() {
-        return "Structure.Bavard{" +
-                "pseudo='" + pseudo + '\'' +
-                ", gestionnaireListeners=" + communityListeners +
-                '}';
+        return pseudo;
     }
 
     public void addCMListeners(CommunityManager cm){
@@ -45,7 +43,7 @@ public class Bavard implements MessageListener {
 
     public void newMessageEvent(String sujet, String corps, String topicDestination) {
         if(this.getConnection()) {
-            CommunityManager cmDestination = Gestionnaire.getCMbyTopic(topicDestination);
+            CommunityManager cmDestination = gestionnaire.getCMbyTopic(topicDestination);
             MessageEvent message = new MessageEvent(this, sujet, corps);
             assert cmDestination != null;
             cmDestination.messageRecu(message);

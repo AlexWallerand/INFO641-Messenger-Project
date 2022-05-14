@@ -5,6 +5,7 @@ import Structure.Gestionnaire;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 import java.util.Vector;
 
 public class Administrateur extends Fenetre{
@@ -24,9 +25,11 @@ public class Administrateur extends Fenetre{
         JLabel mdp = new JLabel("Mot de passe : ",JLabel.CENTER);
         JLabel topic = new JLabel("Nom du topic : ",JLabel.CENTER);
         JButton submitBavard = new JButton("inscrire");
-        JLabel validationBavard = new JLabel("L'utilisateur est inscrit");
+        JLabel validationBavard = new JLabel("L'utilisateur est inscrit.");
+        JLabel existBavard = new JLabel("Ce pseudo est déjà pris.");
         JButton submitCM = new JButton("création");
-        JLabel validationCM = new JLabel("Le groupe est créé");
+        JLabel validationCM = new JLabel("Le groupe est créé.");
+        JLabel bList = new JLabel("Liste des utilisteurs : ");
         JList<Bavard> bavardList = new JList<>(new Vector<>(gestionnaire.getListBavard()));
 
         this.pan.setLayout(new GridBagLayout());
@@ -93,6 +96,10 @@ public class Administrateur extends Fenetre{
 
         constraints.gridx = 0;
         constraints.gridy = 4;
+        this.pan.add(bList,constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 5;
         this.pan.add(bavardList,constraints);
 
 
@@ -103,13 +110,26 @@ public class Administrateur extends Fenetre{
             String p = inputPseudo.getText();
             char[] mdpPassword = inputMdp.getPassword();
             String m = new String(mdpPassword);
-            gestionnaire.createBavard(p,m);
-            if(!containsComponent(pan,validationBavard)){
-                constraints.gridx = 2;
-                constraints.gridy = 3;
-                validationBavard.setForeground(Color.getColor("forestGreen", Color.decode("#1B8E50")));
-                pan.add(validationBavard,constraints);
+            if(createBavardCheck(p,m)){
+                gestionnaire.createBavard(p,m);
+                if(!containsComponent(pan,validationBavard)){
+                    constraints.gridx = 2;
+                    constraints.gridy = 3;
+                    validationBavard.setForeground(Color.getColor("forestGreen", Color.decode("#1B8E50")));
+                    pan.remove(existBavard);
+                    pan.add(validationBavard,constraints);
+                }
             }
+            else {
+                if(!containsComponent(pan,existBavard)){
+                    constraints.gridx = 2;
+                    constraints.gridy = 3;
+                    existBavard.setForeground(Color.getColor("darkRed", Color.decode("#B30000")));
+                    pan.remove(validationBavard);
+                    pan.add(existBavard,constraints);
+                }
+            }
+
 
             bavardList.setListData(new Vector<>(gestionnaire.getListBavard()));
             setVisible(true);
@@ -128,5 +148,14 @@ public class Administrateur extends Fenetre{
         });
 
     }
+    public boolean createBavardCheck(String pseudo,String mdp){
+        for(Bavard bavard : gestionnaire.getListBavard()){
+            if (Objects.equals(pseudo, bavard.getPseudo())){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
 

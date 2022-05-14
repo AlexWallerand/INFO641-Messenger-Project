@@ -55,22 +55,9 @@ public class Gestionnaire {
 
 
     public Bavard createBavard(String pseudo, String mdp){
-        boolean commut = true;
-        for(Bavard bavard : listBavard){
-            if (Objects.equals(pseudo, bavard.getPseudo())){
-                commut = false;
-                break;
-            }
-        }
-        if(commut){
-            Bavard bavard = new Bavard(pseudo, mdp, this);
-            listBavard.add(bavard);
-            return bavard;
-        }
-        else{
-            System.out.println("Un utilisateur porte déjà ce pseudo, veuillez ressayer avec un autre pseudo.");
-            return null;
-        }
+        Bavard bavard = new Bavard(pseudo, mdp, this);
+        listBavard.add(bavard);
+        return bavard;
     }
 
     public void deleteBavard(String pseudo, String mdp){

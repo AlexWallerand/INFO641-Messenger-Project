@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class Bavard implements MessageListener {
     private final String pseudo, mdp; // Pseudo unique requis
-    private final ArrayList<MessageListener> communityListeners = new ArrayList<>();
+    private final ArrayList<CommunityManager> communityListeners = new ArrayList<>();
     private Boolean connection = false;
     private Gestionnaire gestionnaire;
+    private BavardListener listener;
 
     public Bavard(String pseudo, String mdp, Gestionnaire gestionnaire) {
         this.pseudo = pseudo;
@@ -28,8 +29,17 @@ public class Bavard implements MessageListener {
         this.connection = connection;
     }
 
-    public ArrayList<MessageListener> getCommunityListeners() {
+    public ArrayList<CommunityManager> getCommunityListeners() {
         return communityListeners;
+    }
+
+    public String[] getCmTopics(){
+        ArrayList<CommunityManager> list_cm = getCommunityListeners();
+        ArrayList<String> list_topic = new ArrayList<>();
+        for(CommunityManager cm : list_cm){
+            list_topic.add(cm.getTopic());
+        }
+        return list_topic.toArray(new String[0]);
     }
 
     @Override
@@ -41,12 +51,14 @@ public class Bavard implements MessageListener {
         communityListeners.add(cm);
     }
 
-    public void newMessageEvent(String sujet, String corps, String topicDestination) {
+    public void newMessageEvent(String sujet, String corps, CommunityManager cmDestination) {
         if(this.getConnection()) {
-            CommunityManager cmDestination = gestionnaire.getCMbyTopic(topicDestination);
             MessageEvent message = new MessageEvent(this, sujet, corps);
             assert cmDestination != null;
             cmDestination.messageRecu(message);
+            if(this.listener != null){
+                this.listener.onMessage(message);
+            }
         }
     }
 
@@ -55,4 +67,7 @@ public class Bavard implements MessageListener {
         System.out.println(this.pseudo + " reçoit : " + message);
     }
 
+    public void addListener(BavardListener bavardListener) {
+        this.listener = bavardListener;
+    }
 }

@@ -32,7 +32,6 @@ public class Connexion extends Fenetre{
         this.pan.add(inputMdp);
         this.pan.add(submit);
         this.setVisible(true);
-        Connexion c = this;
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,7 +41,6 @@ public class Connexion extends Fenetre{
                 Bavard bavard = gestionnaire.searchBavard(p,m);
                 if((Objects.equals(p, "admin")) && (Objects.equals(m, "admin"))){
                     Administrateur pageAdmin = new Administrateur(gestionnaire);
-                    c.dispose();
                 }
                 else if((bavard == null)){
                     if(!containsComponent(pan,erreur)){
@@ -52,6 +50,7 @@ public class Connexion extends Fenetre{
                 }
                 else{
                     gestionnaire.connectionBavard(bavard);
+                    Utilisateur pageUtilisateur = new Utilisateur(bavard,gestionnaire);
                 }
            }
        });

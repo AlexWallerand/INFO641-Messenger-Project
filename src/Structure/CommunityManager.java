@@ -20,13 +20,12 @@ public class CommunityManager implements MessageListener{
 
     @Override
     public String toString() {
-        return "Structure.CommunityManager{" +
-                "topic='" + topic + '\'' +
-                '}';
+        return topic;
     }
 
     @Override
     public void messageRecu(MessageEvent message) {
+        message.setCm(this);
         for(MessageListener listener : listListeners){
             if(message.getSource() != listener) {
                 listener.messageRecu(message);

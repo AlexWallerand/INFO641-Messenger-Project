@@ -14,6 +14,24 @@ public class Gestionnaire {
         return listBavard;
     }
 
+    public String[] getTabBavardPseudo() {
+        ArrayList<String> listPseudo =  new ArrayList<>();
+        for(Bavard b : listBavard){
+            listPseudo.add(b.getPseudo());
+        }
+        return listPseudo.toArray(new String[0]);
+    }
+
+    public ArrayList<Bavard> getListBavardConnectes(){
+        ArrayList<Bavard> bavard_connectes = new ArrayList<>();
+        for(Bavard bavard : listBavard){
+            if (bavard.getConnection()){
+                bavard_connectes.add(bavard);
+            }
+        }
+        return bavard_connectes;
+    }
+
     public ArrayList<CommunityManager> getListCM() {
         return listCM;
     }
@@ -27,6 +45,25 @@ public class Gestionnaire {
         System.out.println("Aucun topic existant ne porte ce nom");
         return null;
     }
+
+    public Bavard getBavardbyPseudo(String pseudo){
+        for(Bavard b : listBavard){
+            if (Objects.equals(b.getPseudo(), pseudo)){
+                return b;
+            }
+        }
+        System.out.println("Aucun utilisteur ne porte ce nom");
+        return null;
+    }
+
+    public String[] getTabCmTopic() {
+        ArrayList<String> listTopic =  new ArrayList<>();
+        for(CommunityManager cm : listCM){
+            listTopic.add(cm.getTopic());
+        }
+        return listTopic.toArray(new String[0]);
+    }
+
     @Override
     public String toString() {
         return "Structure.Gestionnaire{" +

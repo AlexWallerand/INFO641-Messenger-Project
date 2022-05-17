@@ -3,25 +3,28 @@ package Structure;
 import Ihm.Administrateur;
 import Ihm.Connexion;
 import Ihm.Fenetre;
+import Ihm.Utilisateur;
+import jdk.jshell.execution.Util;
 
 public class TestClass {
     public static void main(String[] args) {
 
         Gestionnaire g = new Gestionnaire();
-        CommunityManager furry = g.createCM("furrygai");
-        CommunityManager mein = g.createCM("meinQuanpf");
-        Bavard pedro = g.createBavard("pedro","a");
-        Bavard robert = g.createBavard("robert","b");
-        Bavard patrick = g.createBavard("patrick","c");
+        CommunityManager idu = g.createCM("IDU-3");
+        CommunityManager python = g.createCM("Python");
+        Bavard kave = g.createBavard("Kavé","idu");
+        Bavard alex = g.createBavard("Alex","abc");
+        Bavard mael = g.createBavard("Maël","123");
 
-        g.addListener(pedro,furry);
-        g.addListener(robert,furry);
-        g.addListener(robert,mein);
-        g.addListener(patrick,mein);
+        g.addListener(kave,idu);
+        g.addListener(alex,idu);
+        g.addListener(alex,python);
+        g.addListener(mael,python);
+        kave.setConnection(true);
 
-        pedro.newMessageEvent("pipi pasta","si si la pipi pasta wahou","furrygai");
+        mael.newMessageEvent("Projet Java","Devons nous faire un rapport ?",idu);
 
-        //Fenetre ihm = new Connexion(g);
-        Administrateur pageAdmin = new Administrateur(g);
+        Fenetre ihm = new Connexion(g);
+
     }
 }

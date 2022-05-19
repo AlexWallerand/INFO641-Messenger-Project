@@ -1,15 +1,18 @@
 package Structure;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class Bavard implements MessageListener {
     private final String pseudo, mdp; // Pseudo unique requis
     private final ArrayList<CommunityManager> communityListeners = new ArrayList<>();
     private Boolean connection = false;
     private Gestionnaire gestionnaire;
-    private BavardListener listener;
+    private HashMap<CommunityManager,ArrayList<MessageEvent>> dictMessages = new HashMap<>();
 
-    public Bavard(String pseudo, String mdp, Gestionnaire gestionnaire) {
+    public Bavard( String pseudo, String mdp, Gestionnaire gestionnaire) {
         this.pseudo = pseudo;
         this.mdp = mdp;
         this.gestionnaire = gestionnaire;
@@ -23,6 +26,10 @@ public class Bavard implements MessageListener {
     }
     public Boolean getConnection() {
         return connection;
+    }
+
+    public HashMap<CommunityManager, ArrayList<MessageEvent>> getDictMessages() {
+        return dictMessages;
     }
 
     public void setConnection(Boolean connection) {
@@ -52,22 +59,26 @@ public class Bavard implements MessageListener {
     }
 
     public void newMessageEvent(String sujet, String corps, CommunityManager cmDestination) {
-        if(this.getConnection()) {
+        if (this.ecoute(cmDestination)){
             MessageEvent message = new MessageEvent(this, sujet, corps);
             assert cmDestination != null;
             cmDestination.messageRecu(message);
-            if(this.listener != null){
-                this.listener.onMessage(message);
-            }
         }
+
     }
 
     @Override
     public void messageRecu(MessageEvent message) {
-        System.out.println(this.pseudo + " reçoit : " + message);
+        dictMessages.get(message.getCm()).add(message);
     }
 
-    public void addListener(BavardListener bavardListener) {
-        this.listener = bavardListener;
+
+    public boolean ecoute(CommunityManager communityManager){
+        for(CommunityManager cm : communityListeners){
+            if (Objects.equals(cm, communityManager)){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -11,6 +11,7 @@ public abstract class Fenetre extends JFrame {
 
     public Fenetre(String title) throws HeadlessException {
         super();
+        this.setResizable(false);
         this.setSize(width, height);
         this.setTitle(title);
     }

@@ -36,9 +36,9 @@ public class MessageEvent extends EventObject {
 
     @Override
     public String toString() {
-        return "Structure.MessageEvent{" +
-                "sujet='" + sujet + '\'' +
-                ", corps='" + corps + '\'' +
+        return "Message de "+this.source+" {" +
+                "sujet : " + sujet + '\'' +
+                ", corps : " + corps +
                 '}';
     }
 }

@@ -1,11 +1,14 @@
 package Structure;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Gestionnaire {
     private final ArrayList<Bavard> listBavard = new ArrayList<>();
     private final ArrayList<CommunityManager> listCM = new ArrayList<>();
+
+    private DefaultListModel<Bavard>  bavard_connectes = new DefaultListModel<>();
 
     public Gestionnaire() {
     }
@@ -22,11 +25,11 @@ public class Gestionnaire {
         return listPseudo.toArray(new String[0]);
     }
 
-    public ArrayList<Bavard> getListBavardConnectes(){
-        ArrayList<Bavard> bavard_connectes = new ArrayList<>();
+    public DefaultListModel<Bavard> getListBavardConnectes(){
+        DefaultListModel<Bavard>  bavard_connectes = new DefaultListModel<>();
         for(Bavard bavard : listBavard){
             if (bavard.getConnection()){
-                bavard_connectes.add(bavard);
+                bavard_connectes.addElement(bavard);
             }
         }
         return bavard_connectes;
@@ -116,15 +119,20 @@ public class Gestionnaire {
     public void addListener(Bavard bavard, CommunityManager cm){
         cm.getListListeners().add(bavard);
         bavard.getCommunityListeners().add(cm);
+        bavard.getDictMessages().put(cm,new ArrayList<>());
     }
 
     public void removeListener(Bavard bavard, CommunityManager cm){
         cm.getListListeners().remove(bavard);
     }
 
+    public DefaultListModel<Bavard> getBavard_connectes() {
+        return bavard_connectes;
+    }
+
     public void connectionBavard(Bavard bavard){
         bavard.setConnection(true);
-
+        bavard_connectes = getListBavardConnectes();
     }
 
     public void deconnectionBavard(Bavard bavard){

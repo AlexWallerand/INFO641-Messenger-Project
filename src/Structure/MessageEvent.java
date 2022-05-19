@@ -1,8 +1,11 @@
+package Structure;
+
 import java.util.EventObject;
 
 public class MessageEvent extends EventObject {
     private final String sujet;
     private final String corps;
+    private CommunityManager cm;
 
     public MessageEvent(Object source, String sujet, String corps) {
         super(source);
@@ -18,6 +21,14 @@ public class MessageEvent extends EventObject {
         return corps;
     }
 
+    public CommunityManager getCm() {
+        return cm;
+    }
+
+    public void setCm(CommunityManager cm) {
+        this.cm = cm;
+    }
+
     @Override
     public Object getSource() {
         return super.getSource();
@@ -25,9 +36,9 @@ public class MessageEvent extends EventObject {
 
     @Override
     public String toString() {
-        return "MessageEvent{" +
-                "sujet='" + sujet + '\'' +
-                ", corps='" + corps + '\'' +
+        return "Message de "+this.source+" {" +
+                "sujet : " + sujet + '\'' +
+                ", corps : " + corps +
                 '}';
     }
 }

@@ -1,3 +1,5 @@
+package Structure;
+
 import java.util.EventListener;
 
 public interface MessageListener extends EventListener {

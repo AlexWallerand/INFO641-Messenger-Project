@@ -11,7 +11,7 @@ public class TestClass {
 
         Gestionnaire g = new Gestionnaire();
         CommunityManager idu = g.createCM("IDU-3");
-        CommunityManager python = g.createCM("Python");
+        CommunityManager java = g.createCM("Java");
         CommunityManager cafet = g.createCM("Caféretia Polytech");
 
         Bavard kave = g.createBavard("Kavé","idu");
@@ -23,8 +23,8 @@ public class TestClass {
         g.addListener(alex,idu);
         g.addListener(mael,idu);
 
-        g.addListener(alex,python);
-        g.addListener(mael,python);
+        g.addListener(alex,java);
+        g.addListener(mael,java);
 
         g.addListener(mael,cafet);
         g.addListener(kave,cafet);
@@ -32,9 +32,9 @@ public class TestClass {
         g.addListener(flavien,cafet);
 
 
-        mael.newMessageEvent("Projet Java","Devons nous faire un rapport ?",python);
+        mael.newMessageEvent("Projet Java","Devons nous faire un rapport ?",java);
         alex.newMessageEvent("Repas midi","Il reste des paninis ?",cafet);
-        mael.newMessageEvent("Repas midi","juste une oui",cafet);
+        mael.newMessageEvent("Repas midi","juste un oui",cafet);
         kave.newMessageEvent("Report du cours de demain","Je serais absent pour le TD de demain.",idu);
 
         Fenetre c = new Connexion(g);

@@ -9,7 +9,7 @@ Un gestionnaire permettra la création de bavards, de community manager, et l'ab
 
 Pour illustrer le programme, voici un diagramme UML reprenant l'ensemble des classes et interfaces, leurs méthodes, ainsi que leurs lien d'héritage ou d'implémentation.
 <p align = center>
-    <img width = 500 src="UML.png"><br>
+    <img width = 500 src="UML1.png"><br>
     <i>Diagramme UML du programme</i>
 </p>
 
